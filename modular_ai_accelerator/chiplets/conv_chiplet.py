@@ -1,27 +1,26 @@
-import time
+import numpy as np
 
 class ConvChiplet:
-    def __init__(self, kernel_size=3, enable=True):
+    def __init__(self, kernel_size=3, pipeline_stages=2):
         self.kernel_size = kernel_size
-        self.kernel = [[1 for _ in range(kernel_size)] for _ in range(kernel_size)]
-        self.enable = enable
-        self.energy_time = 0
-
+        # Example pipeline registers simulation (list of partial results)
+        self.pipeline_stages = pipeline_stages
+        self.kernel = np.ones((kernel_size, kernel_size), dtype=int)
+        
     def apply(self, matrix):
-        if not self.enable:
-            print("[ConvChiplet] Disabled")
-            return matrix
-        start = time.time()
-        output = []
-        for i in range(len(matrix) - self.kernel_size + 1):
-            row = []
-            for j in range(len(matrix[0]) - self.kernel_size + 1):
-                val = 0
-                for ki in range(self.kernel_size):
-                    for kj in range(self.kernel_size):
-                        val += matrix[i+ki][j+kj] * self.kernel[ki][kj]
-                row.append(val)
-            output.append(row)
-        end = time.time()
-        self.energy_time = end - start
+        matrix = np.array(matrix)
+        rows, cols = matrix.shape
+        out_rows = rows - self.kernel_size + 1
+        out_cols = cols - self.kernel_size + 1
+        output = np.zeros((out_rows, out_cols), dtype=int)
+        
+        # Simulate pipelined partial sums (very simplified)
+        for stage in range(self.pipeline_stages):
+            # For demo, just compute partial sums by splitting rows among stages
+            start_row = (out_rows * stage) // self.pipeline_stages
+            end_row = (out_rows * (stage + 1)) // self.pipeline_stages
+            for i in range(start_row, end_row):
+                for j in range(out_cols):
+                    sub_mat = matrix[i:i+self.kernel_size, j:j+self.kernel_size]
+                    output[i, j] = np.sum(sub_mat * self.kernel)
         return output
