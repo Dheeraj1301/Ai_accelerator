@@ -43,10 +43,8 @@ class PipelineSimulator:
         print(f"MatMulChiplet: {matmul_time:.6f}s")
 
 if __name__ == "__main__":
-    # 5x5 input matrix for better simulation
     input_matrix = np.arange(1, 26).reshape(5, 5)
     kernel_size = 3
-    # MatMul weights with dynamic size to match conv output
     matmul_weights = np.ones((5 - kernel_size + 1, 1))
     
     sim = PipelineSimulator(input_matrix, kernel_size=kernel_size, matmul_weights=matmul_weights)
