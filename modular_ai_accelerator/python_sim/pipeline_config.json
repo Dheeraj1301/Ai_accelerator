@@ -1,0 +1,7 @@
+{
+  "bit_width": 8,
+  "conv_kernel_size": 2,
+  "conv_enable": true,
+  "act_enable": true,
+  "matmul_enable": true
+}

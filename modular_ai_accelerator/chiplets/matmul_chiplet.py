@@ -1,17 +1,16 @@
-class MatMulChiplet:
-    def process(self, matrix_a, matrix_b):
-        # Simple matrix multiplication assuming valid dimensions
-        result = []
-        rows_a = len(matrix_a)
-        cols_a = len(matrix_a[0])
-        cols_b = len(matrix_b[0])
+import time
 
-        for i in range(rows_a):
-            row_result = []
-            for j in range(cols_b):
-                val = 0
-                for k in range(cols_a):
-                    val += matrix_a[i][k] * matrix_b[k][j]
-                row_result.append(val)
-            result.append(row_result)
+class MatMulChiplet:
+    def __init__(self, enable=True):
+        self.enable = enable
+        self.energy_time = 0
+
+    def multiply(self, A, B):
+        if not self.enable:
+            print("[MatMulChiplet] Disabled")
+            return A
+        start = time.time()
+        result = [[sum(a*b for a,b in zip(row,col)) for col in zip(*B)] for row in A]
+        end = time.time()
+        self.energy_time = end - start
         return result

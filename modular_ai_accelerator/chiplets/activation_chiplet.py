@@ -1,24 +1,16 @@
+import time
+
 class ActivationChiplet:
-    def __init__(self, activation_type="relu"):
-        self.activation_type = activation_type.lower()
+    def __init__(self, enable=True):
+        self.enable = enable
+        self.energy_time = 0
 
-    def process(self, input_matrix):
-        def relu(x):
-            return max(0, x)
-
-        def sigmoid(x):
-            import math
-            return 1 / (1 + math.exp(-x))
-
-        output = []
-        for row in input_matrix:
-            output_row = []
-            for val in row:
-                if self.activation_type == "relu":
-                    output_row.append(relu(val))
-                elif self.activation_type == "sigmoid":
-                    output_row.append(sigmoid(val))
-                else:
-                    output_row.append(val)  # default no activation
-            output.append(output_row)
-        return output
+    def relu(self, matrix):
+        if not self.enable:
+            print("[ActivationChiplet] Disabled")
+            return matrix
+        start = time.time()
+        activated = [[max(0, val) for val in row] for row in matrix]
+        end = time.time()
+        self.energy_time = end - start
+        return activated

@@ -1,0 +1,26 @@
+Input Matrix
+4,7,3,3,10
+6,2,4,1,2
+9,3,1,10,10
+7,4,6,10,8
+9,7,4,2,10
+
+ConvChiplet Output
+39,34,44
+42,41,52
+50,47,61
+
+ActivationChiplet Output (ReLU)
+39,34,44
+42,41,52
+50,47,61
+
+MatMulChiplet Output
+117
+135
+158
+
+Energy Profiling (seconds simulated)
+ConvChiplet,0.000000s
+ActivationChiplet,0.000000s
+MatMulChiplet,0.000000s
