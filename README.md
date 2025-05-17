@@ -67,7 +67,7 @@ Is educational: Serves as a foundation for developers and researchers to prototy
 
 Is extensible: Easily expanded with more chiplets (e.g., pooling, normalization) or connected to hardware emulators.
 ## File Structure:
-```  .
+```  
 ├── app.py                 # Streamlit dashboard
 ├── python_sim/
 │   └── simulate_pipeline.py   # Pipeline simulation script
@@ -77,14 +77,27 @@ Is extensible: Easily expanded with more chiplets (e.g., pooling, normalization)
 │   └── activation_chiplet.py   # ActivationChiplet module
 ├── tests/
 │   └── test_pipeline_latency.py    # Unit tests for chiplets
-└── README.md               # This file```
+└── README.md               # This file
+```
+
+
+
+
 ## Example Prompts for Testing and Running
 Run simulation with default settings:
   ```python python_sim/simulate_pipeline.py```
+
+
+
 Run unit tests with detailed output:
  ``` python -m unittest -v tests/test_pipeline_latency.py```
+
+
+
 Launch interactive dashboard:
   ```streamlit run app.py```
+
+
 ## Final Notes
 This modular approach to simulating AI accelerators bridges software and hardware concepts, enabling deeper understanding of how individual computational units impact overall neural network performance. Through ongoing enhancements and community feedback, this project can evolve into a valuable tool for both education and research in AI hardware acceleration.
 
