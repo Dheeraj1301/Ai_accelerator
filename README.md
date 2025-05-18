@@ -1,103 +1,129 @@
 
-### AI Accelerator Pipeline Simulator
-## Project Overview
-This project simulates a modular AI accelerator pipeline designed to mimic core operations in deep learning accelerators. The framework consists of individual chiplets representing fundamental computation units such as matrix multiplication, convolution, and activation functions. By modeling each step separately and then combining them in a pipeline, this simulation provides insights into latency, energy consumption, and computational behavior of AI accelerators.
+# AI Accelerator Pipeline Simulator
 
-The project includes a lightweight Streamlit dashboard to visualize inputs, intermediate results, and performance metrics, making it easier to understand the accelerator’s operation in a user-friendly and interactive environment.
+---
+
+## Project Overview
+
+This project simulates a modular AI accelerator pipeline, modeling fundamental computation units (chiplets) commonly found in deep learning hardware accelerators. It includes convolution, activation (ReLU), and matrix multiplication stages connected in a pipeline to analyze latency and energy profiling. The framework also features an interactive **Streamlit dashboard** to visualize computations and performance metrics.
+
+---
 
 ## Technologies & Frameworks
-Python 3.10+: Core programming language for development
 
-NumPy: Efficient numerical computations and matrix operations
+- **Python 3.10+** — Core development language  
+- **NumPy** — Numerical matrix operations  
+- **Streamlit** — Lightweight dashboard for interactive visualization  
+- **Unittest** — Python’s unit testing framework  
 
-Streamlit: Lightweight and interactive web dashboard for visualization
+---
 
-Unittest: Python’s built-in testing framework for code verification
+## Code Modules
 
-## How to Run and Test
-# Running the Pipeline Simulation
-Ensure all dependencies are installed:
-  ```pip install numpy streamlit```
-Run the simulation script:
-  ```python python_sim/simulate_pipeline.py```
-Expected output includes input matrix, outputs at each stage, and timing metrics for convolution, activation, and matmul chiplets.
-Running Unit Tests
-Tests cover core functionalities of chiplets:
- ``` python -m unittest discover -s tests```
-Using the Streamlit Dashboard
-Launch the dashboard to interact with the pipeline visually:
-  ```streamlit run app.py```
-## The dashboard allows you to:
+### MatMulChiplet
 
-Upload or generate input matrices dynamically.
+Implements matrix multiplication with the method:
 
-Adjust kernel sizes.
-
-Visualize convolution, activation, and matmul outputs.
-
-View simulated latency for each pipeline stage.
-
-## Troubleshooting and Fixes
-During development, several issues were resolved to ensure smooth operation and consistency:
-
-MatMulChiplet Method Signature: Fixed method to accept two arguments (multiply(A, B)) and corrected calls to match.
-
-ReLU Activation Comparison: Replaced direct assertEqual on numpy arrays with np.array_equal() in tests to avoid ambiguity errors.
-
-PipelineSimulator Initialization: Removed unnecessary constructor parameters from MatMulChiplet to match the defined class.
-
-Module Import Paths: Adjusted Python path imports to accommodate directory structure, ensuring chiplets package modules are found when app.py runs outside the package.
-
-Consistent Data Types: Converted inputs to NumPy arrays across all modules for reliable numerical operations and test consistency.
-
-Test Execution Output: Added verbosity flags and __main__ guard to test scripts to get detailed output during test runs.
-
-Streamlit Styling: Created a lightweight dark-themed dashboard with minimal dependencies for easy deployment.
-
-## Why This Project Matters for AI Accelerators
-AI accelerators are specialized hardware designed to speed up the computation of neural networks, especially matrix multiplications and convolutions, which dominate deep learning workloads. This project:
-
-Models the modular design: Reflects current trends in chiplet-based accelerator design, where separate specialized units (chiplets) are interconnected for flexible, scalable computation.
-
-Simulates pipelining: Helps understand latency and throughput trade-offs in pipelined architectures.
-
-Provides insights for optimization: Timing outputs simulate energy and performance metrics valuable for hardware/software co-design.
-
-Is educational: Serves as a foundation for developers and researchers to prototype new accelerator ideas without physical hardware.
-
-Is extensible: Easily expanded with more chiplets (e.g., pooling, normalization) or connected to hardware emulators.
-## File Structure:
-```  
-├── app.py                 # Streamlit dashboard
-├── python_sim/
-│   └── simulate_pipeline.py   # Pipeline simulation script
-├── chiplets/
-│   ├── matmul_chiplet.py       # MatMulChiplet module
-│   ├── conv_chiplet.py         # ConvChiplet module
-│   └── activation_chiplet.py   # ActivationChiplet module
-├── tests/
-│   └── test_pipeline_latency.py    # Unit tests for chiplets
-└── README.md               # This file
+```python
+multiply(A, B)
 ```
+ConvChiplet
+Performs 2D convolution with pipelining simulation:
 
+```python
 
+apply(matrix)
+```
+ActivationChiplet
+Applies ReLU activation:
 
+```python
 
-## Example Prompts for Testing and Running
-Run simulation with default settings:
-  ```python python_sim/simulate_pipeline.py```
+relu(x)
+```
+PipelineSimulator
+Coordinates the pipeline execution and profiling:
 
+```python
 
+run()
+```
+How to Run
+1. Install Dependencies
+```bash
 
-Run unit tests with detailed output:
- ``` python -m unittest -v tests/test_pipeline_latency.py```
+pip install numpy streamlit
+```
+2. Run Pipeline Simulation
+```bash
 
+python python_sim/simulate_pipeline.py
+```
+3. Run Unit Tests
+```bash
 
+python -m unittest discover -s tests -v
+```
+4. Launch Streamlit Dashboard
+```bash
 
-Launch interactive dashboard:
-  ```streamlit run app.py```
+streamlit run app.py
+```
+### Troubleshooting & Fixes
+Fixed method signature mismatch in MatMulChiplet to accept two input matrices.
 
+Used np.array_equal() in tests to avoid assertion errors with NumPy arrays.
 
-## Final Notes
-This modular approach to simulating AI accelerators bridges software and hardware concepts, enabling deeper understanding of how individual computational units impact overall neural network performance. Through ongoing enhancements and community feedback, this project can evolve into a valuable tool for both education and research in AI hardware acceleration.
+Adjusted imports to reflect the project’s directory structure for smooth execution.
 
+Ensured consistent use of NumPy arrays across chiplets for numerical stability.
+
+Added timing simulation in PipelineSimulator for energy profiling insights.
+
+Benefits for AI Accelerator Research
+Models chiplet-based modular accelerator designs.
+
+Simulates pipelining stages to estimate latency and throughput.
+
+Offers a testbed for evaluating new accelerator concepts without hardware.
+
+Provides educational insights bridging hardware and software aspects of AI computation.
+
+### Project Structure
+```
+.
+├── app.py
+├── python_sim/
+│   └── simulate_pipeline.py
+├── chiplets/
+│   ├── matmul_chiplet.py
+│   ├── conv_chiplet.py
+│   └── activation_chiplet.py
+├── tests/
+│   └── test_pipeline_latency.py
+└── README.md
+```
+Example Commands
+Run simulation with default parameters:
+
+```bash
+
+python python_sim/simulate_pipeline.py
+```
+Run detailed tests:
+
+```bash
+
+python -m unittest -v tests/test_pipeline_latency.py
+```
+Start the interactive dashboard:
+
+```bash
+
+streamlit run app.py
+```
+### 
+Acknowledgements
+Developed as part of a modular AI accelerator simulation project. Inspired by modern AI chiplet architectures and the need for accessible accelerator design tools.
+
+Feel free to reach out for contributions, issues, or feature requests!
