@@ -1,8 +1,5 @@
 
 # AI Accelerator Pipeline Simulator
-
----
-
 ## Project Overview
 
 This project simulates a modular AI accelerator pipeline, modeling fundamental computation units (chiplets) commonly found in deep learning hardware accelerators. It includes convolution, activation (ReLU), and matrix multiplication stages connected in a pipeline to analyze latency and energy profiling. The framework also features an interactive **Streamlit dashboard** to visualize computations and performance metrics.
